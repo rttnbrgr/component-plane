@@ -3,16 +3,10 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { ChakraProvider, Box, Stack, Button } from "@chakra-ui/react";
-import {
-  PhoneIcon,
-  AddIcon,
-  WarningIcon,
-  ArrowForwardIcon,
-  ArrowBackIcon,
-} from "@chakra-ui/icons";
+import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
 const iconLeft = <ArrowBackIcon />;
-const iconRight = <ArrowBackIcon />;
+const iconRight = <ArrowForwardIcon />;
 
 const baseButtonProps = {
   colorScheme: "gray",
