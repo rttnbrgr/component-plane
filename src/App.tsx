@@ -5,12 +5,6 @@ import { ButtonColorCollection } from "./components/Button";
 import { ColorControls } from "./components/ColorControls";
 import { defaultThemeColors } from "./utils";
 
-const RootFrame = ({ children }) => (
-  <Flex h="100vh" w="100vw" direction="column">
-    {children}
-  </Flex>
-);
-
 function App() {
   const [previewColors, setPreviewColors] = useState([defaultThemeColors[0]]);
   const previewColorsHandlers = { previewColors, setPreviewColors };
