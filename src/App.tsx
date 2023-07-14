@@ -1,76 +1,63 @@
 import "./App.css";
-import { ChakraProvider, Box, Stack, Button, Text } from "@chakra-ui/react";
-import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
-
-const iconLeft = <ArrowBackIcon />;
-const iconRight = <ArrowForwardIcon />;
-
-const baseButtonProps = {
-  colorScheme: "gray",
-  size: "md",
-  variant: "outline",
-  children: "Button",
-};
-
-const loadingButtonProps = {
-  isLoading: true,
-  loadingText: "Loading",
-};
-
-type buttonCollectionProps = {
-  colorScheme?: string;
-  size?: string;
-  variant?: string;
-  children?: string;
-};
-
-const ButtonCollection = (props: buttonCollectionProps) => {
-  console.log("props", props);
-  return (
-    <Stack direction="row" spacing={props.variant !== "link" ? 4 : 12}>
-      <Button leftIcon={iconLeft} {...props} />
-      <Button {...props} />
-      <Button rightIcon={iconRight} {...props} />
-      <Button {...props} {...loadingButtonProps} spinnerPlacement="start" />
-      <Button {...props} isLoading />
-      <Button {...props} {...loadingButtonProps} spinnerPlacement="end" />
-    </Stack>
-  );
-};
-
-ButtonCollection.defaultProps = baseButtonProps;
-
-const ButtonSizeCollection = (
-  props: Omit<buttonCollectionProps, "variant">
-) => {
-  return (
-    <Stack direction="column">
-      <ButtonCollection {...props} variant="solid" />
-      <ButtonCollection {...props} variant="outline" />
-      <ButtonCollection {...props} variant="ghost" />
-      <Box pl="4">
-        <ButtonCollection {...props} variant="link" />
-      </Box>
-    </Stack>
-  );
-};
+import { ChakraProvider, Box, Stack, Text, Flex } from "@chakra-ui/react";
+import { useState } from "react";
+import { ButtonColorCollection } from "./components/Button";
+import { ColorControls } from "./components/ColorControls";
+import { defaultThemeColors } from "./utils";
 
 function App() {
+  const [previewColors, setPreviewColors] = useState([defaultThemeColors[0]]);
+  const previewColorsHandlers = { previewColors, setPreviewColors };
   return (
     <>
       <ChakraProvider>
-        <Box textAlign="center" pb="10">
-          <Text>Component Plane</Text>
-        </Box>
-        {/* Buttons */}
-        <Box>
-          <Stack direction="column" spacing="8">
-            <ButtonSizeCollection size="xs" />
-            <ButtonSizeCollection size="sm" />
-            <ButtonSizeCollection size="md" />
-            <ButtonSizeCollection size="lg" />
-          </Stack>
-        </Box>
+        {/* ROOT FRAME */}
+        <Flex h="100vh" w="100vw" direction="column">
+          {/*******************
+           * HEADER
+           *******************/}
+          <Box
+            textAlign="left"
+            pb="10"
+            // bg="green"
+            px="4"
+            py="4"
+          >
+            <Box mb="2">
+              <Text fontSize="3xl" fontWeight="bold" letterSpacing="tight">
+                Component Plane
+              </Text>
+            </Box>
+            {/* Controls */}
+            <Stack>
+              <Text fontSize="xl" fontWeight="bold" letterSpacing="tight">
+                Color
+              </Text>
+              <ColorControls {...previewColorsHandlers} />
+            </Stack>
+          </Box>
+
+          {/* COMPONENT PANE */}
+          <Box
+            // bg="pink.100"
+            p="4"
+            py="8"
+            flexGrow="1"
+            sx={{ overflowY: "scroll" }}
+          >
+            {/* this should be a scrolling pane */}
+            <Stack direction="row" spacing="8">
+              {/* Buttons */}
+              {previewColors.map((color, i) => (
+                <>
+                  {/* All the rest */}
+                  {/* Buttons */}
+                  <ButtonColorCollection colorScheme={color} key={i} />
+                </>
+              ))}
+            </Stack>
+          </Box>
+        </Flex>
       </ChakraProvider>
     </>
   );
