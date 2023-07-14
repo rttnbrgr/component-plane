@@ -37,6 +37,7 @@ export const ColorControls = ({
         return (
           // Selected Ring
           <Flex
+            key={i}
             // Resolve this transition
             // bg={"black"}
             bg={isActive ? "black" : "white"}

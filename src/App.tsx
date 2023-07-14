@@ -52,7 +52,7 @@ function App() {
                 <>
                   {/* All the rest */}
                   {/* Buttons */}
-                  <ButtonColorCollection colorScheme={color} />
+                  <ButtonColorCollection colorScheme={color} key={i} />
                 </>
               ))}
             </Stack>
