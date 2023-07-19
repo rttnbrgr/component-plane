@@ -4,6 +4,10 @@ import { useState } from "react";
 import { ButtonColorCollection } from "./components/Button";
 import { ColorControls } from "./components/ColorControls";
 import { defaultThemeColors } from "./utils";
+import {
+  PlaceholderComponent,
+  mockComponents,
+} from "./components/PlaceholderComponent";
 
 function App() {
   const [previewColors, setPreviewColors] = useState([defaultThemeColors[0]]);
@@ -46,11 +50,28 @@ function App() {
             sx={{ overflowY: "scroll" }}
           >
             {/* this should be a scrolling pane */}
-            <Stack direction="row" spacing="8">
+            <Stack direction="row" spacing="8" alignItems={"start"}>
               {/* Buttons */}
               {previewColors.map((color, i) => (
                 <>
                   {/* All the rest */}
+                  {mockComponents.map((group, i) => (
+                    <PlaceholderComponent
+                      title={group.id}
+                      key={i}
+                      color={color}
+                    >
+                      <Stack mt="2">
+                        {group.components.map((cmp, j) => (
+                          <PlaceholderComponent
+                            title={cmp}
+                            key={j}
+                            color={color}
+                          />
+                        ))}
+                      </Stack>
+                    </PlaceholderComponent>
+                  ))}
                   {/* Buttons */}
                   <ButtonColorCollection colorScheme={color} key={i} />
                 </>
