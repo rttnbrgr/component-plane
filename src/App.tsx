@@ -6,12 +6,21 @@ import { ColorControls } from "./components/ColorControls";
 import { defaultThemeColors } from "./utils";
 import {
   PlaceholderComponent,
+  componentStateObject,
   mockComponents,
 } from "./components/PlaceholderComponent";
+import { ComponentControls } from "./components/ComponentControls";
 
 function App() {
+  // Colors
   const [previewColors, setPreviewColors] = useState([defaultThemeColors[0]]);
   const previewColorsHandlers = { previewColors, setPreviewColors };
+
+  // Components
+  const [visibleComponents, setVisibleComponents] =
+    useState(componentStateObject);
+  const visibleComponentsHandlers = { visibleComponents, setVisibleComponents };
+
   return (
     <>
       <ChakraProvider>
@@ -33,11 +42,18 @@ function App() {
               </Text>
             </Box>
             {/* Controls */}
-            <Stack>
+            <Stack mb="2">
               <Text fontSize="xl" fontWeight="bold" letterSpacing="tight">
                 Color
               </Text>
               <ColorControls {...previewColorsHandlers} />
+            </Stack>
+            {/* Components */}
+            <Stack>
+              <Text fontSize="xl" fontWeight="bold" letterSpacing="tight">
+                Components
+              </Text>
+              <ComponentControls {...visibleComponentsHandlers} />
             </Stack>
           </Box>
 
@@ -62,13 +78,18 @@ function App() {
                       color={color}
                     >
                       <Stack mt="2">
-                        {group.components.map((cmp, j) => (
-                          <PlaceholderComponent
-                            title={cmp}
-                            key={j}
-                            color={color}
-                          />
-                        ))}
+                        {group.components.map((cmp, j) => {
+                          const isVisible: boolean = visibleComponents[cmp];
+                          return (
+                            isVisible && (
+                              <PlaceholderComponent
+                                title={cmp}
+                                key={j}
+                                color={color}
+                              />
+                            )
+                          );
+                        })}
                       </Stack>
                     </PlaceholderComponent>
                   ))}

@@ -42,6 +42,32 @@ export const mockComponents = [
   },
 ];
 
+export const componentStateObject = {
+  Button: true,
+  Checkbox: true,
+  Editable: true,
+  "Form Control": true,
+  "Icon Button": true,
+  Input: true,
+  "Number Input": true,
+  "Pin Input": true,
+  Radio: true,
+  "Range Slider": true,
+  Select: true,
+  Slider: true,
+  Switch: true,
+  "Text Area": true,
+  Badge: true,
+  Card: true,
+  Code: true,
+  Divider: true,
+  Kbd: true,
+  List: true,
+  Stat: true,
+  Table: true,
+  Tag: true,
+};
+
 export const PlaceholderComponent = ({
   title,
   children,
