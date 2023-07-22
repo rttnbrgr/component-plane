@@ -79,6 +79,10 @@ function App() {
                     >
                       <Stack mt="2">
                         {group.components.map((cmp, j) => {
+                          const shouldRender = cmp !== "Button";
+                          if (!shouldRender) {
+                            return;
+                          }
                           const isVisible: boolean = visibleComponents[cmp];
                           return (
                             isVisible && (
@@ -94,7 +98,9 @@ function App() {
                     </PlaceholderComponent>
                   ))}
                   {/* Buttons */}
-                  <ButtonColorCollection colorScheme={color} key={i} />
+                  {visibleComponents["Button"] && (
+                    <ButtonColorCollection colorScheme={color} key={i} />
+                  )}
                 </>
               ))}
             </Stack>
