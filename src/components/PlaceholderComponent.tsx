@@ -42,7 +42,9 @@ export const mockComponents = [
   },
 ];
 
-export const componentStateObject = {
+export type componentStateObjectType = any;
+
+export const componentStateObject: componentStateObjectType = {
   Button: true,
   Checkbox: true,
   Editable: true,

@@ -8,7 +8,10 @@ import {
   SimpleGrid,
   SwitchProps,
 } from "@chakra-ui/react";
-import { mockComponents } from "./PlaceholderComponent";
+import {
+  componentStateObjectType,
+  mockComponents,
+} from "./PlaceholderComponent";
 
 type ComponentControlSwitchProps = {
   id: any;
@@ -38,10 +41,17 @@ export const ComponentControlSwitch = ({
   );
 };
 
+type ComponentControlProps = {
+  visibleComponents: componentStateObjectType;
+  setVisibleComponents: React.Dispatch<
+    React.SetStateAction<componentStateObjectType>
+  >;
+};
+
 export const ComponentControls = ({
   visibleComponents,
   setVisibleComponents,
-}) => {
+}: ComponentControlProps) => {
   return (
     <Box>
       <Stack direction={"row"} spacing={"6"} width="100%" flexWrap={"wrap"}>
@@ -52,6 +62,7 @@ export const ComponentControls = ({
               base: "0 0 100%",
               md: "1 0 50%",
             }}
+            key={i}
           >
             <Text
               fontSize="sm"
@@ -72,7 +83,7 @@ export const ComponentControls = ({
                 // const isChecked = visibleComponents[cmp]
                 const handleToggle = () => {
                   console.log("handle toggle for ", cmp);
-                  setVisibleComponents(prev => {
+                  setVisibleComponents((prev: componentStateObjectType) => {
                     // Copy object
                     const duplicate = { ...prev };
                     // Update
