@@ -4,19 +4,18 @@ import { useState } from "react";
 import { ButtonColorCollection } from "./components/Button";
 import { ColorControls } from "./components/ColorControls";
 import { defaultThemeColors } from "./utils";
+import { PlaceholderComponent } from "./components/PlaceholderComponent";
+import { ComponentControls } from "./components/ComponentControls";
 import {
-  PlaceholderComponent,
+  mockComponents,
   componentGroupStateObject,
   componentStateObject,
-  mockComponents,
-} from "./components/PlaceholderComponent";
-import { ComponentControls } from "./components/ComponentControls";
+} from "./mocks";
 
 function App() {
   // Colors
   const [previewColors, setPreviewColors] = useState([defaultThemeColors[0]]);
   const previewColorsHandlers = { previewColors, setPreviewColors };
-
   // Components
   const [visibleComponents, setVisibleComponents] =
     useState(componentStateObject);

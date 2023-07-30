@@ -1,18 +1,17 @@
 import { Box, Stack, Text, SimpleGrid } from "@chakra-ui/react";
 import {
-  componentStateObjectType,
+  componentGroupObject,
   mockComponents,
-} from "./PlaceholderComponent";
+  visibilityRecord,
+} from "../mocks";
 import { ComponentControlSwitch } from "./ComponentControlSwitch";
 
 type ComponentControlProps = {
-  visibleComponents: componentStateObjectType;
-  setVisibleComponents: React.Dispatch<
-    React.SetStateAction<componentStateObjectType>
-  >;
-  visibleComponentGroups: componentStateObjectType;
+  visibleComponents: visibilityRecord;
+  setVisibleComponents: React.Dispatch<React.SetStateAction<visibilityRecord>>;
+  visibleComponentGroups: visibilityRecord;
   setVisibleComponentGroups: React.Dispatch<
-    React.SetStateAction<componentStateObjectType>
+    React.SetStateAction<visibilityRecord>
   >;
 };
 
@@ -22,25 +21,28 @@ export const ComponentControls = ({
   visibleComponentGroups,
   setVisibleComponentGroups,
 }: ComponentControlProps) => {
-  function handleGroupToggle(x: any, y: boolean) {
+  function handleGroupToggle(
+    cmpGroup: componentGroupObject,
+    checkedVal: boolean
+  ) {
     console.log("---");
-    console.log("handle group toggle for ", x);
-    console.log("val:", y);
+    console.log("handle group toggle for ", cmpGroup);
+    console.log("val:", checkedVal);
 
-    setVisibleComponents((prev: componentStateObjectType) => {
+    setVisibleComponents(prev => {
       // Copy object
       const duplicate = { ...prev };
       // Walk componets + set
-      x.components.forEach((component: any) => {
+      cmpGroup.components.forEach(component => {
         // Update
-        duplicate[component] = y;
+        duplicate[component] = checkedVal;
         // duplicate[cmp] = !check2;
       });
       // Return
       return duplicate;
     });
 
-    setVisibleComponentGroups((prev: any) => {
+    setVisibleComponentGroups(prev => {
       // Copy object
       const duplicate = { ...prev };
 
@@ -55,7 +57,7 @@ export const ComponentControls = ({
       // console.log("check", check);
 
       // Look up group; Update val
-      duplicate[x.id] = y;
+      duplicate[cmpGroup.id] = checkedVal;
       // Return
       return duplicate;
     });
@@ -95,7 +97,7 @@ export const ComponentControls = ({
                 // const isChecked = visibleComponents[cmp]
                 const handleToggle = () => {
                   // console.log("handle toggle for ", cmp);
-                  setVisibleComponents((prev: componentStateObjectType) => {
+                  setVisibleComponents(prev => {
                     // Copy object
                     const duplicate = { ...prev };
                     // Update

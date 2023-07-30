@@ -1,90 +1,12 @@
 import { Box, Text } from "@chakra-ui/react";
 
-// Forms
-export const formComponents = [
-  "Button",
-  "Checkbox",
-  "Editable",
-  "Form Control",
-  "Icon Button",
-  "Input",
-  "Number Input",
-  "Pin Input",
-  "Radio",
-  "Range Slider",
-  "Select",
-  "Slider",
-  "Switch",
-  "Text Area",
-];
-
-// Data
-export const dataComponents = [
-  "Badge",
-  "Card",
-  "Code",
-  "Divider",
-  "Kbd",
-  "List",
-  "Stat",
-  "Table",
-  "Tag",
-];
-
-export const mockComponents = [
-  {
-    id: "form",
-    components: formComponents,
-    visibility: true,
-  },
-  {
-    id: "data",
-    components: dataComponents,
-    visibility: true,
-  },
-];
-
-// should be comibed
-export const componentGroupStateObject = {
-  form: true,
-  data: true,
-};
-
-export type componentStateObjectType = any;
-
-export const componentStateObject: componentStateObjectType = {
-  Button: true,
-  Checkbox: true,
-  Editable: true,
-  "Form Control": true,
-  "Icon Button": true,
-  Input: true,
-  "Number Input": true,
-  "Pin Input": true,
-  Radio: true,
-  "Range Slider": true,
-  Select: true,
-  Slider: true,
-  Switch: true,
-  "Text Area": true,
-  Badge: true,
-  Card: true,
-  Code: true,
-  Divider: true,
-  Kbd: true,
-  List: true,
-  Stat: true,
-  Table: true,
-  Tag: true,
-};
-
 export const PlaceholderComponent = ({
   title,
   children,
   color = "red",
 }: {
   title?: string;
-  children?: any;
+  children?: React.ReactNode;
   color?: string;
 }) => {
   return (
