@@ -12,7 +12,6 @@ export const ColorControls = ({
   setVisibleColors,
 }: ColorControlsProps) => {
   const toggleColor = (color: string, isActive: boolean) => {
-    console.log("handle toggle for ", color);
     setVisibleColors(prev => {
       // Copy object
       const duplicate = { ...prev };

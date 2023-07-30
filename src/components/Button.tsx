@@ -1,4 +1,4 @@
-import { Box, Stack, Button } from "@chakra-ui/react";
+import { Box, Stack, Button, ResponsiveValue } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
 const iconLeft = <ArrowBackIcon />;
@@ -16,17 +16,27 @@ const loadingButtonProps = {
   loadingText: "Loading",
 };
 
-type buttonCollectionProps = {
+type linkSpacing = {
+  initial: ResponsiveValue<string>;
+  siblingSpacingLink: ResponsiveValue<string>;
+};
+
+type buttonCollectionProps = linkSpacing & {
   colorScheme?: string;
   size?: string;
   variant?: string;
   children?: string;
 };
 
-const ButtonCollection = (props: buttonCollectionProps) => {
-  // console.log("props", props);
+const ButtonCollection = ({
+  siblingSpacingLink,
+  ...props
+}: buttonCollectionProps) => {
   return (
-    <Stack direction="row" spacing={props.variant !== "link" ? 4 : 12}>
+    <Stack
+      direction="row"
+      spacing={props.variant !== "link" ? 4 : siblingSpacingLink}
+    >
       <Button leftIcon={iconLeft} {...props} />
       <Button {...props} />
       <Button rightIcon={iconRight} {...props} />
@@ -47,22 +57,44 @@ const ButtonSizeCollection = (
       <ButtonCollection {...props} variant="solid" />
       <ButtonCollection {...props} variant="outline" />
       <ButtonCollection {...props} variant="ghost" />
-      <Box pl="4">
+      <Box pl={props.initial}>
         <ButtonCollection {...props} variant="link" />
       </Box>
     </Stack>
   );
 };
 
+const propsBySize = [
+  {
+    size: "xs",
+    initial: "2",
+    siblingSpacingLink: "8",
+  },
+  {
+    size: "sm",
+    initial: "3",
+    siblingSpacingLink: "10",
+  },
+  {
+    size: "md",
+    initial: "4",
+    siblingSpacingLink: "12",
+  },
+  {
+    size: "lg",
+    initial: "6",
+    siblingSpacingLink: "16",
+  },
+];
+
 export const ButtonColorCollection = (
   props: Omit<buttonCollectionProps, "variant" | "size">
 ) => {
   return (
     <Stack direction="column" spacing="8">
-      <ButtonSizeCollection size="xs" {...props} />
-      <ButtonSizeCollection size="sm" {...props} />
-      <ButtonSizeCollection size="md" {...props} />
-      <ButtonSizeCollection size="lg" {...props} />
+      {propsBySize.map((sizeProps, i) => (
+        <ButtonSizeCollection key={i} {...props} {...sizeProps} />
+      ))}
     </Stack>
   );
 };
