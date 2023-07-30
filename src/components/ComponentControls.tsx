@@ -1,45 +1,9 @@
-import {
-  Box,
-  Stack,
-  Text,
-  FormControl,
-  FormLabel,
-  Switch,
-  SimpleGrid,
-  SwitchProps,
-} from "@chakra-ui/react";
+import { Box, Stack, Text, SimpleGrid } from "@chakra-ui/react";
 import {
   componentStateObjectType,
   mockComponents,
 } from "./PlaceholderComponent";
-
-type ComponentControlSwitchProps = {
-  id: any;
-  children: string;
-  isChecked?: SwitchProps["isChecked"];
-  onChange?: SwitchProps["onChange"];
-};
-
-export const ComponentControlSwitch = ({
-  id,
-  children,
-  isChecked = undefined,
-  onChange,
-}: ComponentControlSwitchProps) => {
-  return (
-    <FormControl
-      display="flex"
-      alignItems="center"
-      width={"100%"}
-      justifyContent={"space-between"}
-    >
-      <FormLabel htmlFor={id} mb="0" mr="6" fontSize={"sm"}>
-        {children}
-      </FormLabel>
-      <Switch id={id} isChecked={isChecked} onChange={onChange} />
-    </FormControl>
-  );
-};
+import { ComponentControlSwitch } from "./ComponentControlSwitch";
 
 type ComponentControlProps = {
   visibleComponents: componentStateObjectType;
@@ -64,16 +28,11 @@ export const ComponentControls = ({
             }}
             key={i}
           >
-            <Text
-              fontSize="sm"
-              textTransform={"uppercase"}
-              letterSpacing="wider"
-              fontWeight={"bold"}
-              color={`grey.500`}
-            >
+            <ComponentControlSwitch id={`${i}-${group.id}`} isHeader>
               {group.id}
-            </Text>
-            <SimpleGrid minChildWidth="150px" spacing="2" spacingX={"6"}>
+            </ComponentControlSwitch>
+
+            <SimpleGrid minChildWidth="150px" spacing="2" spacingX={"6"} mt="2">
               {group.components.map((cmp, j) => {
                 const check = visibleComponents["Button"];
                 const check2: boolean = visibleComponents[cmp];
