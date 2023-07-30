@@ -22,7 +22,7 @@ export const ComponentControls = ({
   visibleComponentGroups,
   setVisibleComponentGroups,
 }: ComponentControlProps) => {
-  function handleGroupToggle(x, y: boolean) {
+  function handleGroupToggle(x: any, y: boolean) {
     console.log("---");
     console.log("handle group toggle for ", x);
     console.log("val:", y);
@@ -31,7 +31,7 @@ export const ComponentControls = ({
       // Copy object
       const duplicate = { ...prev };
       // Walk componets + set
-      x.components.forEach(component => {
+      x.components.forEach((component: any) => {
         // Update
         duplicate[component] = y;
         // duplicate[cmp] = !check2;
@@ -40,7 +40,7 @@ export const ComponentControls = ({
       return duplicate;
     });
 
-    setVisibleComponentGroups(prev => {
+    setVisibleComponentGroups((prev: any) => {
       // Copy object
       const duplicate = { ...prev };
 
