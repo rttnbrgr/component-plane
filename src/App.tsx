@@ -1,5 +1,15 @@
 import "./App.css";
-import { ChakraProvider, Box, Stack, Text, Flex } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Box,
+  Stack,
+  Text,
+  Flex,
+  useColorMode,
+  Button,
+  ThemeConfig,
+  extendTheme,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { ButtonColorCollection } from "./components/Button";
 import { ColorControls } from "./components/ColorControls";
@@ -11,6 +21,7 @@ import {
   mockComponents,
 } from "./components/PlaceholderComponent";
 import { ComponentControls } from "./components/ComponentControls";
+import { ComponentControlSwitch } from "./components/ComponentControlSwitch";
 
 function App() {
   // Colors
@@ -32,9 +43,12 @@ function App() {
     setVisibleComponentGroups,
   };
 
+  // Color Mode
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <>
-      <ChakraProvider>
+      <div>
         {/* ROOT FRAME */}
         <Flex h="100vh" w="100vw" direction="column">
           {/*******************
@@ -53,11 +67,20 @@ function App() {
               </Text>
             </Box>
             {/* Controls */}
-            <Stack mb="2">
+            <Stack mb="2" alignItems={"flex-start"}>
               <Text fontSize="xl" fontWeight="bold" letterSpacing="tight">
                 Color
               </Text>
               <ColorControls {...previewColorsHandlers} />
+              <Text fontSize="xl" fontWeight="bold" letterSpacing="tight">
+                Color Mode
+              </Text>
+              <Stack direction={"row"}>
+                <Button onClick={toggleColorMode} size={"xs"}>
+                  Toggle
+                </Button>
+                <Text>{colorMode === "light" ? "🌝" : "🌚"}</Text>
+              </Stack>
             </Stack>
             {/* Components */}
             <Stack>
@@ -111,7 +134,7 @@ function App() {
             </Stack>
           </Box>
         </Flex>
-      </ChakraProvider>
+      </div>
     </>
   );
 }
