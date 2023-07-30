@@ -88,7 +88,10 @@ const propsBySize = [
 ];
 
 export const ButtonColorCollection = (
-  props: Omit<buttonCollectionProps, "variant" | "size">
+  props: Omit<
+    buttonCollectionProps,
+    "variant" | "size" | "initial" | "siblingSpacingLink"
+  >
 ) => {
   return (
     <Stack direction="column" spacing="8">
