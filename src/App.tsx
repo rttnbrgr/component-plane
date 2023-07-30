@@ -58,18 +58,12 @@ function App() {
           </Box>
 
           {/* COMPONENT PANE */}
-          <Box
-            // bg="pink.100"
-            p="4"
-            py="8"
-            flexGrow="1"
-            sx={{ overflowY: "scroll" }}
-          >
+          <Box p="4" py="8" flexGrow="1" sx={{ overflowY: "scroll" }}>
             {/* this should be a scrolling pane */}
             <Stack direction="row" spacing="8" alignItems={"start"}>
               {/* Buttons */}
-              {previewColors.map((color, i) => (
-                <>
+              {previewColors.map((color, j) => (
+                <Stack direction="row" spacing="8" alignItems={"start"} key={j}>
                   {/* All the rest */}
                   {mockComponents.map((group, i) => (
                     <PlaceholderComponent
@@ -99,9 +93,9 @@ function App() {
                   ))}
                   {/* Buttons */}
                   {visibleComponents["Button"] && (
-                    <ButtonColorCollection colorScheme={color} key={i} />
+                    <ButtonColorCollection colorScheme={color} />
                   )}
-                </>
+                </Stack>
               ))}
             </Stack>
           </Box>
