@@ -33,7 +33,6 @@ export const ColorControls = ({
           }
         };
 
-        console.log("hi");
         return (
           // Selected Ring
           <Flex

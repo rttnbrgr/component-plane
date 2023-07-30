@@ -6,6 +6,7 @@ import { ColorControls } from "./components/ColorControls";
 import { defaultThemeColors } from "./utils";
 import {
   PlaceholderComponent,
+  componentGroupStateObject,
   componentStateObject,
   mockComponents,
 } from "./components/PlaceholderComponent";
@@ -19,7 +20,17 @@ function App() {
   // Components
   const [visibleComponents, setVisibleComponents] =
     useState(componentStateObject);
-  const visibleComponentsHandlers = { visibleComponents, setVisibleComponents };
+  // Component Group
+  const [visibleComponentGroups, setVisibleComponentGroups] = useState(
+    componentGroupStateObject
+  );
+
+  const visibleComponentsHandlers = {
+    visibleComponents,
+    setVisibleComponents,
+    visibleComponentGroups,
+    setVisibleComponentGroups,
+  };
 
   return (
     <>

@@ -10,11 +10,17 @@ type ComponentControlProps = {
   setVisibleComponents: React.Dispatch<
     React.SetStateAction<componentStateObjectType>
   >;
+  visibleComponentGroups: componentStateObjectType;
+  setVisibleComponentGroups: React.Dispatch<
+    React.SetStateAction<componentStateObjectType>
+  >;
 };
 
 export const ComponentControls = ({
   visibleComponents,
   setVisibleComponents,
+  visibleComponentGroups,
+  setVisibleComponentGroups,
 }: ComponentControlProps) => {
   return (
     <Box>

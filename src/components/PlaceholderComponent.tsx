@@ -35,12 +35,20 @@ export const mockComponents = [
   {
     id: "form",
     components: formComponents,
+    visibility: true,
   },
   {
     id: "data",
     components: dataComponents,
+    visibility: true,
   },
 ];
+
+// should be comibed
+export const componentGroupStateObject = {
+  form: true,
+  data: true,
+};
 
 export type componentStateObjectType = any;
 
