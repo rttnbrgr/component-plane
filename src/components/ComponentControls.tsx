@@ -1,4 +1,4 @@
-import { Box, Stack, Text, SimpleGrid } from "@chakra-ui/react";
+import { Box, Stack, SimpleGrid } from "@chakra-ui/react";
 import {
   componentGroupObject,
   mockComponents,

@@ -3,19 +3,18 @@ import { Box, Stack, Text, Flex, useColorMode, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { ButtonColorCollection } from "./components/Button";
 import { ColorControls } from "./components/ColorControls";
-import { defaultThemeColors } from "./utils";
 import { PlaceholderComponent } from "./components/PlaceholderComponent";
 import { ComponentControls } from "./components/ComponentControls";
 import {
   mockComponents,
   componentGroupStateObject,
   componentStateObject,
+  themeColors,
 } from "./mocks";
 
 function App() {
   // Colors
-  const [previewColors, setPreviewColors] = useState([defaultThemeColors[0]]);
-  const previewColorsHandlers = { previewColors, setPreviewColors };
+  const [visibleColors, setVisibleColors] = useState(themeColors);
   // Components
   const [visibleComponents, setVisibleComponents] =
     useState(componentStateObject);
@@ -58,7 +57,10 @@ function App() {
             <Text fontSize="xl" fontWeight="bold" letterSpacing="tight">
               Color
             </Text>
-            <ColorControls {...previewColorsHandlers} />
+            <ColorControls
+              visibleColors={visibleColors}
+              setVisibleColors={setVisibleColors}
+            />
             <Text fontSize="xl" fontWeight="bold" letterSpacing="tight">
               Color Mode
             </Text>
@@ -82,38 +84,48 @@ function App() {
         <Box p="4" py="8" flexGrow="1" sx={{ overflowY: "scroll" }}>
           {/* this should be a scrolling pane */}
           <Stack direction="row" spacing="8" alignItems={"start"}>
-            {/* Buttons */}
-            {previewColors.map((color, j) => (
-              <Stack direction="row" spacing="8" alignItems={"start"} key={j}>
-                {/* All the rest */}
-                {mockComponents.map((group, i) => (
-                  <PlaceholderComponent title={group.id} key={i} color={color}>
-                    <Stack mt="2">
-                      {group.components.map((cmp, j) => {
-                        const shouldRender = cmp !== "Button";
-                        if (!shouldRender) {
-                          return;
-                        }
-                        const isVisible: boolean = visibleComponents[cmp];
-                        return (
-                          isVisible && (
-                            <PlaceholderComponent
-                              title={cmp}
-                              key={j}
-                              color={color}
-                            />
-                          )
-                        );
-                      })}
-                    </Stack>
-                  </PlaceholderComponent>
-                ))}
-                {/* Buttons */}
-                {visibleComponents["Button"] && (
-                  <ButtonColorCollection colorScheme={color} />
-                )}
-              </Stack>
-            ))}
+            {/* Colors */}
+            {Object.keys(visibleColors).map((color, j) => {
+              const shouldRender = visibleColors[color];
+              if (!shouldRender) {
+                return;
+              }
+              return (
+                <Stack direction="row" spacing="8" alignItems={"start"} key={j}>
+                  {/* All the rest */}
+                  {mockComponents.map((group, i) => (
+                    <PlaceholderComponent
+                      title={group.id}
+                      key={i}
+                      color={color}
+                    >
+                      <Stack mt="2">
+                        {group.components.map((cmp, j) => {
+                          const shouldRender = cmp !== "Button";
+                          if (!shouldRender) {
+                            return;
+                          }
+                          const isVisible: boolean = visibleComponents[cmp];
+                          return (
+                            isVisible && (
+                              <PlaceholderComponent
+                                title={cmp}
+                                key={j}
+                                color={color}
+                              />
+                            )
+                          );
+                        })}
+                      </Stack>
+                    </PlaceholderComponent>
+                  ))}
+                  {/* Buttons */}
+                  {visibleComponents["Button"] && (
+                    <ButtonColorCollection colorScheme={color} />
+                  )}
+                </Stack>
+              );
+            })}
           </Stack>
         </Box>
       </Flex>

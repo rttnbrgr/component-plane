@@ -58,8 +58,6 @@ export const componentGroupStateObject: visibilityRecord = {
   data: true,
 };
 
-// export type componentStateObjectType = any;
-
 export const componentStateObject: visibilityRecord = {
   Button: true,
   Checkbox: true,
@@ -84,4 +82,19 @@ export const componentStateObject: visibilityRecord = {
   Stat: true,
   Table: true,
   Tag: true,
+};
+
+// Colors
+export const themeColors: visibilityRecord = {
+  // "alphas": true,
+  gray: true,
+  red: false,
+  orange: false,
+  yellow: false,
+  green: false,
+  teal: false,
+  blue: false,
+  cyan: false,
+  purple: false,
+  pink: false,
 };
