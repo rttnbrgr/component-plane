@@ -1,74 +1,41 @@
-import { Box, Stack, Flex } from "@chakra-ui/react";
-import { defaultThemeColors } from "../utils";
+import { Stack } from "@chakra-ui/react";
+import { themeColors, visibilityRecord } from "../mocks";
+import { ColorRing } from "./ColorRing";
 
 type ColorControlsProps = {
-  previewColors: string[];
-  setPreviewColors: React.Dispatch<React.SetStateAction<string[]>>;
+  visibleColors: visibilityRecord;
+  setVisibleColors: React.Dispatch<React.SetStateAction<visibilityRecord>>;
 };
 
 export const ColorControls = ({
-  previewColors,
-  setPreviewColors,
+  visibleColors,
+  setVisibleColors,
 }: ColorControlsProps) => {
+  const toggleColor = (color: string, isActive: boolean) => {
+    setVisibleColors(prev => {
+      // Copy object
+      const duplicate = { ...prev };
+      // Update
+      duplicate[color] = !isActive;
+      // Return
+      return duplicate;
+    });
+  };
+
   return (
     <Stack direction={"row"}>
-      {defaultThemeColors.map((color, i) => {
-        const isActive = previewColors.includes(color);
+      {Object.keys(themeColors).map((color, i) => {
+        const isActive = visibleColors[color];
         const computedColor = isActive ? `${color}.500` : `${color}.100`;
 
-        const handleClick = () => {
-          if (isActive) {
-            const index = previewColors.indexOf(color);
-            const newArray = [
-              ...previewColors.slice(0, index),
-              ...previewColors.slice(index + 1),
-            ];
-            console.log("index", index);
-            console.log("newArray", newArray);
-            setPreviewColors(newArray);
-            return;
-          } else {
-            setPreviewColors(old => [...old, color]);
-            return;
-          }
-        };
-
-        console.log("hi");
         return (
-          // Selected Ring
-          <Flex
-            key={i}
-            // Resolve this transition
-            // bg={"black"}
-            bg={isActive ? "black" : "white"}
-            // opacity={isActive ? "100%" : "0%"}
-            boxSize="5"
-            borderRadius="full"
-            justifyContent={"center"}
-            alignItems={"center"}
-            sx={{
-              transition: "all .3s ease",
-              "&:hover": {
-                background: isActive ? "black" : "gray.400",
-              },
-            }}
-          >
-            {/* Color Ring */}
-            <Box
-              bg={computedColor}
-              boxSize="4"
-              borderRadius="full"
-              border="2px solid white "
-              onClick={handleClick}
-              sx={{
-                transition: "all .3s ease",
-                "&:hover": {
-                  cursor: "pointer",
-                  backgroundColor: `${color}.500`,
-                },
-              }}
-            />
-          </Flex>
+          <ColorRing
+            key={`${i}-${color}`}
+            isActive={isActive}
+            computedColor={computedColor}
+            handleClick={() => toggleColor(color, isActive)}
+            color={color}
+          />
         );
       })}
     </Stack>
