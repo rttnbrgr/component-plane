@@ -80,7 +80,10 @@ function App() {
           </Stack>
         </Box>
 
-        {/* COMPONENT PANE */}
+        {/* COMPONENT 
+        
+        
+        PANE */}
         <Box p="4" py="8" flexGrow="1" sx={{ overflowY: "scroll" }}>
           {/* this should be a scrolling pane */}
           <Stack direction="row" spacing="8" alignItems={"start"}>
